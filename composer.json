@@ -1,0 +1,12 @@
+{
+    "name": "seegurke13/web-socket-bundle",
+    "description": "Symfony WebSocket Bundle",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Jerome Trope",
+            "email": "jerometrope@gmail.com"
+        }
+    ],
+    "require": {}
+}
