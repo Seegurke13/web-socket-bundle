@@ -2,6 +2,7 @@
     "name": "seegurke13/web-socket-bundle",
     "description": "Symfony WebSocket Bundle",
     "type": "library",
+    "version": "0.1",
     "authors": [
         {
             "name": "Jerome Trope",
@@ -14,6 +15,5 @@
         }
     },
     "require": {
-        ""
     }
 }
