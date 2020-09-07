@@ -15,6 +15,8 @@ use Symfony\Component\VarExporter\VarExporter;
 
 class WebsocketCompilerPass implements CompilerPassInterface
 {
+    const CACHE_DIR = '/websocket';
+    const CACHE_FILE = '/actions.php';
     /**
      * @var Reader
      */
@@ -47,10 +49,10 @@ class WebsocketCompilerPass implements CompilerPassInterface
             }
         }
         $cacheDir = $container->getParameter('kernel.cache_dir');
-        if (is_dir($cacheDir . '/websocket') === false) {
-            mkdir($cacheDir . '/websocket');
+        if (is_dir($cacheDir . self::CACHE_DIR) === false) {
+            mkdir($cacheDir . self::CACHE_DIR);
         }
-        file_put_contents($cacheDir . '/websocket/actions.php', '<?php return ' . VarExporter::export($actions) . ' ?>');
+        file_put_contents($cacheDir . self::CACHE_DIR . self::CACHE_FILE, '<?php return ' . VarExporter::export($actions) . ' ?>');
 
         $resolvers = $container->findTaggedServiceIds('websocket.argument_resolver');
         $tmp = [];

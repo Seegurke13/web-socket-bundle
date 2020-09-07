@@ -8,5 +8,12 @@
             "email": "jerometrope@gmail.com"
         }
     ],
-    "require": {}
+    "autoload": {
+        "psr-4": {
+            "Seegurke13\\WebSocketBundle\\": "src/"
+        }
+    },
+    "require": {
+        ""
+    }
 }

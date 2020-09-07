@@ -18,21 +18,23 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class WsRunCommand extends Command
 {
     protected static $defaultName = 'ws:run';
+//    /**
+//     * @var WsKernel
+//     */
+//    private WsKernel $wsKernel;
+//    /**
+//     * @var LoopInterface
+//     */
+//    private LoopInterface $loop;
     /**
-     * @var WsKernel
+     * @var IoServer
      */
-    private WsKernel $wsKernel;
-    /**
-     * @var LoopInterface
-     */
-    private LoopInterface $loop;
+    private IoServer $ioServer;
 
-    public function __construct(WsKernel $wsKernel, LoopInterface $loop)
+    public function __construct(IoServer $ioServer)
     {
         parent::__construct(self::$defaultName);
-
-        $this->wsKernel = $wsKernel;
-        $this->loop = $loop;
+        $this->ioServer = $ioServer;
     }
 
     protected function configure()
@@ -40,7 +42,7 @@ class WsRunCommand extends Command
         $this
             ->setDescription('Start WebSocket Server')
             ->addOption('port', 'p', InputOption::VALUE_OPTIONAL, 'Port to listen', 8080)
-            ->addOption('host', 'h', InputOption::VALUE_OPTIONAL, 'Port to listen', '127.0.0.1')
+            ->addOption('host', 'i', InputOption::VALUE_OPTIONAL, 'Port to listen', '127.0.0.1')
         ;
     }
 
@@ -48,20 +50,21 @@ class WsRunCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $io->title('WebSocket Server');
+        $this->ioServer->run();
 
-        $socket = new Server($input->getOption('host') . ':' . $input->getOption('port'), $this->loop);
-
-        $server = new IoServer(
-            new HttpServer(
-                new WsServer($this->wsKernel)
-            ),
-            $socket,
-            $this->loop
-        );
-
+//        $socket = new Server('127.0.0.1:' . $input->getOption('port'), $this->loop);
+//
+//        $server = new IoServer(
+//            new HttpServer(
+//                new WsServer($this->wsKernel)
+//            ),
+//            $socket,
+//            $this->loop
+//        );
+//
         $io->writeln('start server on ' . $input->getOption('host') . ':' . $input->getOption('port'));
-
-        $server->run();
+//
+//        $server->run();
 
         return Command::SUCCESS;
     }

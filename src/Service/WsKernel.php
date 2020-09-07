@@ -39,10 +39,6 @@ class WsKernel implements MessageComponentInterface
         $this->logger = $logger;
         $this->controllerResolver = $controllerResolver;
         $this->loop = $loop;
-
-        $this->loop->addPeriodicTimer(5, function () {
-           echo 'test';
-        });
     }
 
     function onOpen(ConnectionInterface $conn)
@@ -77,14 +73,6 @@ class WsKernel implements MessageComponentInterface
 
     function onMessage(ConnectionInterface $from, $msg)
     {
-//        if ($from->new) {
-//            $connectionInitEvent = new ConnectionInitEvent();
-//            $connectionInitEvent->setConnection($from);
-//            $this->eventDispatcher->dispatch($connectionInitEvent);
-//
-//            $from->new = false;
-//            return;
-//        }
         $this->logger->debug($msg);
 
         $dataEvent = new ConnectionDataEvent();

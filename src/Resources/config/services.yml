@@ -37,3 +37,23 @@ services:
   React\EventLoop\LoopInterface:
     factory: 'React\EventLoop\Factory::create'
 
+  React\Socket\ServerInterface:
+    factory: 'Seegurke13\WebSocketBundle\Factory\SocketFactory::create'
+    arguments:
+      - '127.0.0.1'
+      - 8080
+      - '@React\EventLoop\LoopInterface'
+
+  Ratchet\Server\IoServer:
+    arguments:
+      - '@Ratchet\Http\HttpServer'
+      - '@React\Socket\ServerInterface'
+      - '@React\EventLoop\LoopInterface'
+
+  Ratchet\Http\HttpServer:
+    arguments:
+      - '@Ratchet\WebSocket\WsServer'
+
+  Ratchet\WebSocket\WsServer:
+    arguments:
+      - '@Seegurke13\WebSocketBundle\Service\WsKernel'
